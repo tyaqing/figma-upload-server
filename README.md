@@ -38,27 +38,29 @@ Or, configure the information through environment variables at runtime.
 
 ### S3 or S3 compatible configuration
 
-| Configuration Item          | Description                                      | Example                         |
-|-----------------------------|--------------------------------------------------|---------------------------------|
-| GROUP1_S3_NAME              | Optional<br/>Used to identify the business name  | A business/B business-Hong Kong |
-| GROUP1_S3_ACCESS_KEY_ID     | Required                                         | -                               |
-| GROUP1_S3_SECRET_ACCESS_KEY | Required                                         | -                               |
-| GROUP1_S3_BUCKET            | Required                                         | figma-upload                    |
-| GROUP1_S3_REGION            | Required                                         | ap-east-1                       |
-| GROUP1_S3_PATH              | Optional<br/>Separate multiple paths with commas | pathA,public/pathB              |
-| GROUP1_S3_ENDPOINT          | Required                                         | s3.ap-east-1.amazonaws.com      |
-| GROUP1_S3_CDN_URL           | Optional                                         | https://temp-cdn.abfree.com     |
+| Configuration Item          | Description                                      | Example                       |
+|-----------------------------|--------------------------------------------------|-------------------------------|
+| GROUP1_S3_NAME              | Optional<br/>Used to identify the business name  | businessA/businessB-Hong-Kong |
+| GROUP1_S3_ACCESS_KEY_ID     | Required                                         | -                             |
+| GROUP1_S3_SECRET_ACCESS_KEY | Required                                         | -                             |
+| GROUP1_S3_BUCKET            | Required                                         | figma-upload                  |
+| GROUP1_S3_REGION            | Required                                         | ap-east-1                     |
+| GROUP1_S3_PATH              | Optional<br/>Separate multiple paths with commas | pathA,public/pathB            |
+| GROUP1_S3_ENDPOINT          | Required                                         | s3.ap-east-1.amazonaws.com    |
+| GROUP1_S3_CDN_URL           | Optional                                         | https://temp-cdn.abfree.com   |
 
 ### Multi-Bucket Configuration
 
+The format is `GROUP{NUMBER}_S3_{KEY}`
+
 If you need to configure multiple Buckets, you can do so by adding configuration items such as GROUP2_S3_NAME, GROUP2_S3_ACCESS_KEY_ID, etc.
-The format is `GROUP{N}_S3_{KEY}`
+
 
 ### CDN_URL Configuration Explanation
 
-If set, the generated link is: CDN_URL/path/filename
+If set, the generated link is: `CDN_URL/path/filename`
 
-If not set, it is: region/endpoint/path/filename
+If not set, it is: `region/endpoint/path/filename`
 
 ### TINIFY_KEY Configuration
 
@@ -97,8 +99,6 @@ $ docker-compose down
 ### Nodejs, Serverless Deployment
 
 ```shell
-### Node
-```shell
 ## Run
 $ pnpm install
 # development
@@ -108,6 +108,7 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
+You can use the more popular [pm2](https://pm2.keymetrics.io/) as a process daemon, or use serverless deployment.
 
 ## FAQ
 

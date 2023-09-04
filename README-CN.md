@@ -51,8 +51,9 @@
 
 ### 多Bucket配置
 
+其格式为`GROUP{NUMBER}_S3_{KEY}`
+
 如果需要配置多个Bucket,可以通过增加GROUP2_S3_NAME、GROUP2_S3_ACCESS_KEY_ID等配置项来实现。
-其格式为`GROUP{N}_S3_{KEY}`
 
 ### CDN_URL 配置说明
 
@@ -97,8 +98,6 @@ $ docker-compose down
 ### Nodejs、Serverless部署
 
 ```shell
-### Node
-```shell
 ## 运行
 $ pnpm install
 # development
@@ -108,6 +107,7 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
+你可以使用比较热门的[pm2](https://pm2.keymetrics.io/)作为进程守护工具，或者使用serverless部署。
 
 ## FAQ
 
