@@ -109,6 +109,58 @@ $ pnpm run start:prod
 ```
 你可以使用比较热门的[pm2](https://pm2.keymetrics.io/)作为进程守护工具，或者使用serverless部署。
 
+## 日志
+
+通过环境变量 `WRITE_LOG=true`来控制开启日志。 日志写在`logs/upload.log`目录下。
+
+插件会自动上传Figma 插件的[匿名用户信息](https://www.figma.com/plugin-docs/api/figma/#currentuser)，用于统计、审计等。
+
+日志示例：
+```json5
+{
+    "bucket":"6cue",
+    "context":"AppController",
+    "figmaUserId":"919979******14761", // figma用户id
+    "figmaUserName":"Yakir", // figma用户名
+    "level":"info",
+    "message":"s3 response",
+    "path":"public",
+    "requestId":"i44hR1UP********xi44OAiDnuK",
+    "s3Res":{  // s3响应
+        "$metadata":{
+            "attempts":1,
+            "httpStatusCode":200,
+            "requestId":"64F3*******C43133B53FD4",
+            "totalRetryDelay":0
+        },
+        "ETag":"\"E35521CE0*******B63685A5C2BC\""
+    },
+    "timestamp":"2023-09-02T16:27:43.024Z"
+}
+```
+
+### Docker部署时
+
+Docker部署时，可以通过`docker logs`来查看日志。但是日志会随着容器的删除而删除。
+您可以选择挂载日志目录到宿主机上，来保存日志。
+
+```yaml
+    volumes:
+      - /data/logs/figma-upload-server:/usr/src/app/logs
+```
+### PM2部署时
+
+PM2部署时，PM2会自己写日志，日志会保存在`~/.pm2/logs`目录下(默认情况)。
+
+### Serverless部署时
+
+Serverless可以使用平台提供的日志服务，也可以使用第三方日志服务。
+
+### winston日志配置(建设中🚧)
+
+- 支持自定义日志目录
+- 支持日志上传ElasticSearch
+
 ## FAQ
 
 ### 为何上传成功，但是图片无法访问

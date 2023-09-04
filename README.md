@@ -110,6 +110,57 @@ $ pnpm run start:prod
 ```
 You can use the more popular [pm2](https://pm2.keymetrics.io/) as a process daemon, or use serverless deployment.
 
+## Logs
+
+Control the opening of logs through the environment variable `WRITE_LOG=true`. Logs are written in the `logs/upload.log` directory.
+
+The plugin will automatically upload [anonymous user information](https://www.figma.com/plugin-docs/api/figma/#currentuser) of Figma plugins for statistics, auditing, etc.
+
+example:
+```json5
+{
+    "bucket":"6cue",
+    "context":"AppController",
+    "figmaUserId":"919979******14761", // figma user id
+    "figmaUserName":"Yakir", // figma user name
+    "level":"info",
+    "message":"s3 response",
+    "path":"public",
+    "requestId":"i44hR1UP********xi44OAiDnuK",
+    "s3Res":{  // s3 response
+        "$metadata":{
+            "attempts":1,
+            "httpStatusCode":200,
+            "requestId":"64F3*******C43133B53FD4",
+            "totalRetryDelay":0
+        },
+        "ETag":"\"E35521CE0*******B63685A5C2BC\""
+    },
+    "timestamp":"2023-09-02T16:27:43.024Z"
+}
+```
+
+### During Docker deployment
+
+During Docker deployment, you can view logs through `docker logs`. However, logs will be deleted along with the deletion of the container. You can choose to mount the log directory to the host machine to save logs.
+
+```yaml
+    volumes:
+      - /data/logs/figma-upload-server:/usr/src/app/logs
+```
+### During PM2 deployment
+
+During PM2 deployment, PM2 will write its own logs, which will be saved in the `~/.pm2/logs` directory (by default).
+
+### During Serverless deployment
+
+Serverless can use the log service provided by the platform, or a third-party log service.
+
+### Winston log configuration (under construction🚧)
+
+- Support custom log directory
+- Support log upload to ElasticSearch
+
 ## FAQ
 
 ### Why can't I access the image after a successful upload?
